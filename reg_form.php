@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
         $errors['firstname'] = "A name is required";
     } else {
         $firstname = $_POST['firstname'];
-        if (!preg_match('/^[a-zA-Z\s.]+$/', $firstname)) {
+        if (!preg_match('/^[a-zA-Z\s.]+$/', $firstname)) { // ensure there are no numbers in the input field
             $errors['firstname'] = "First name must be letters and spaces only";
         }
     }
@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
         $errors['lastname'] = "A name is required";
     } else {
         $lastname = $_POST['lastname'];
-        if (!preg_match('/^[a-zA-Z\s.]+$/', $lastname)) {
+        if (!preg_match('/^[a-zA-Z\s.]+$/', $lastname)) { // ensure there are no numbers in the input field
             $errors['lastname'] = "Last name must be letters and spaces only";
         }
     }
@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
     } else {
         $dateofbirth = $_POST['dateofbirth'];
         // optional: validate format YYYY-MM-DD
-        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateofbirth)) {
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateofbirth)) { // ensure the format is dd/mm/yy
             $errors['dateofbirth'] = "Invalid date format";
         }
     }
@@ -120,14 +120,14 @@ if (isset($_POST['submit'])) {
         // errors exist — they will be shown in the form below
     } else {
         // sanitize and insert
-        $email = mysqli_real_escape_string($connect, $email);
-        $firstname = mysqli_real_escape_string($connect, $firstname);
-        $lastname = mysqli_real_escape_string($connect, $lastname);
-        $dateofbirth = mysqli_real_escape_string($connect, $dateofbirth);
-        $sex = mysqli_real_escape_string($connect, $sex);
-        $maritalstatus = mysqli_real_escape_string($connect, $maritalstatus);
-        $address = mysqli_real_escape_string($connect, $address);
-        $image_name = mysqli_real_escape_string($connect, $image_name);
+        $email = mysqli_real_escape_string($connect, $_POST['email']);
+        $firstname = mysqli_real_escape_string($connect, $_POST['firstname']);
+        $lastname = mysqli_real_escape_string($connect, $_POST['lastname']);
+        $dateofbirth = mysqli_real_escape_string($connect, $_POST['dateofbirth']);
+        $sex = mysqli_real_escape_string($connect, $_POST['sex']);
+        $maritalstatus = mysqli_real_escape_string($connect, $_POST['marital_status']);
+        $address = mysqli_real_escape_string($connect, $_POST['address']);
+        $image_name = mysqli_real_escape_string($connect, $_FILES['image_name']['name']); // if file upload
 
         // create sql
         $sql = "INSERT INTO details (email, first_name, last_name, date_of_birth, sex, marital_status, address, image_name) VALUES ('$email', '$firstname', '$lastname', '$dateofbirth', '$sex', '$maritalstatus', '$address', '$image_name')";
@@ -148,110 +148,112 @@ if (isset($_POST['submit'])) {
 
 <?php include('templates/header.php'); ?>
 
-<main class="container">
-    <section class="justify-content-center mt-5 pt-5">
-        <div class="card p-5 my-5 border-0 shadow-sm">
-            <!-- submit to same page so the PHP above runs -->
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
-                <div class="mb-5 text-center">
-                    <h1 class="blue">Registration Form</h1>
-                </div>
-
-                <?php if (!empty($errors['general'])): ?>
-                    <div class="alert alert-danger"><?php echo htmlspecialchars($errors['general']); ?></div>
-                <?php endif; ?>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">First Name</label>
-                            <input type="text" name="firstname" class="form-control" value="<?php echo htmlspecialchars($firstname); ?>">
-                            <div class="text-danger"><?php echo $errors['firstname']; ?></div>
-                        </div>
+    <main class="container">
+        <section class="justify-content-center mt-5 pt-5">
+            <div class="card p-5 my-5 border-0 shadow-lg">
+                <!-- submit to same page so the PHP above runs -->
+                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
+                    <div class="mb-5 text-center">
+                        <h1 class="blue">Registration Form</h1>
                     </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">Last Name</label>
-                            <input type="text" name="lastname" class="form-control" value="<?php echo htmlspecialchars($lastname); ?>">
-                            <div class="text-danger"><?php echo $errors['lastname']; ?></div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="mb-3">
-                    <label for="emailInput" class="form-label">Email address</label>
-                    <input id="emailInput" type="email" value="<?php echo htmlspecialchars($email); ?>" class="form-control" name="email" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    <div class="text-danger"><?php echo $errors['email']; ?></div>
-                </div>
+                    <?php if (!empty($errors['general'])): ?>
+                        <div class="alert alert-danger"><?php echo htmlspecialchars($errors['general']); ?></div>
+                    <?php endif; ?>
 
-                <div class="row pt-3">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label name="dateofbirth" class="form-label">Date of Birth</label>
-                            <!-- added name so PHP can read it -->
-                            <input type="date" name="dateofbirth" class="form-control" value="<?php echo htmlspecialchars($dateofbirth); ?>">
-                            <div class="text-danger"><?php echo $errors['dateofbirth']; ?></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="maritalStatus" class="form-label">Marital Status</label>
-                            <!-- keep the visible select but match the php key via name -->
-                            <select class="form-select" id="maritalStatus" name="marital_status" required>
-                                <option value="" disabled <?php if ($maritalstatus === '') echo 'selected'; ?>>-- Select your status --</option>
-                                <option value="single" <?php if ($maritalstatus === 'single') echo 'selected'; ?>>Single</option>
-                                <option value="married" <?php if ($maritalstatus === 'married') echo 'selected'; ?>>Married</option>
-                                <option value="divorced" <?php if ($maritalstatus === 'divorced') echo 'selected'; ?>>Divorced</option>
-                                <option value="widowed" <?php if ($maritalstatus === 'widowed') echo 'selected'; ?>>Widowed</option>
-                            </select>
-                            <div class="text-danger"><?php echo $errors['maritalstatus']; ?></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row pt-3">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">Sex</label>
-                            <div class="d-flex gap-3 align-items-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="male" name="sex" value="male" <?php if ($sex === 'male') echo 'checked'; ?>>
-                                    <label class="form-check-label" for="male">Male</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="female" name="sex" value="female" <?php if ($sex === 'female') echo 'checked'; ?>>
-                                    <label class="form-check-label" for="female">Female</label>
-                                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">First Name</label>
+                                <input type="text" name="firstname" class="form-control" value="<?php echo htmlspecialchars($firstname); ?>">
+                                <div class="text-danger"><?php echo $errors['firstname']; ?></div>
                             </div>
-                            <div class="text-danger"><?php echo $errors['sex']; ?></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" name="lastname" class="form-control" value="<?php echo htmlspecialchars($lastname); ?>">
+                                <div class="text-danger"><?php echo $errors['lastname']; ?></div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="passport" class="mb-2">Passport</label><br>
-                            <input class="form-control" type="file" name="image_name" id="passport" accept="image/*">
-                            <div class="text-danger"><?php echo $errors['image_name']; ?></div>
-                            <?php if ($image_name): ?>
-                                <small class="text-success">Uploaded file: <?php echo htmlspecialchars($image_name); ?></small>
-                            <?php endif; ?>
+                    <div class="mb-3">
+                        <label for="emailInput" class="form-label">Email address</label>
+                        <input id="emailInput" type="email" value="<?php echo htmlspecialchars($email); ?>" class="form-control" name="email" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        <div class="text-danger"><?php echo $errors['email']; ?></div>
+                    </div>
+
+                    <div class="row pt-3">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label name="dateofbirth" class="form-label">Date of Birth</label>
+                                <!-- added name so PHP can read it -->
+                                <input type="date" name="dateofbirth" class="form-control" value="<?php echo htmlspecialchars($dateofbirth); ?>">
+                                <div class="text-danger"><?php echo $errors['dateofbirth']; ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="maritalStatus" class="form-label">Marital Status</label>
+                                <!-- keep the visible select but match the php key via name -->
+                                <select class="form-select" id="maritalStatus" name="marital_status" required>
+                                    <option value="" disabled <?php if ($maritalstatus === '') echo 'selected'; ?>>-- Select your status --</option>
+                                    <option value="single" <?php if ($maritalstatus === 'single') echo 'selected'; ?>>Single</option>
+                                    <option value="married" <?php if ($maritalstatus === 'married') echo 'selected'; ?>>Married</option>
+                                    <option value="divorced" <?php if ($maritalstatus === 'divorced') echo 'selected'; ?>>Divorced</option>
+                                    <option value="widowed" <?php if ($maritalstatus === 'widowed') echo 'selected'; ?>>Widowed</option>
+                                </select>
+                                <div class="text-danger"><?php echo $errors['maritalstatus']; ?></div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Address (optional)</label>
-                    <textarea name="address" class="form-control"><?php echo htmlspecialchars($address); ?></textarea>
-                    <div class="text-danger"><?php echo $errors['address']; ?></div>
-                </div>
+                    <div class="row pt-3">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Sex</label>
+                                <div class="d-flex gap-3 align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="male" name="sex" value="male" <?php if ($sex === 'male') echo 'checked'; ?>>
+                                        <label class="form-check-label" for="male">Male</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="female" name="sex" value="female" <?php if ($sex === 'female') echo 'checked'; ?>>
+                                        <label class="form-check-label" for="female">Female</label>
+                                    </div>
+                                </div>
+                                <div class="text-danger"><?php echo $errors['sex']; ?></div>
+                            </div>
+                        </div>
 
-                <div class="text-center">
-                    <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
-                </div>
-            </form>
-        </div>
-    </section>
-</main>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="passport" class="mb-2">Passport</label><br>
+                                <input class="form-control" type="file" name="image_name" id="passport" accept="image/*">
+                                <div class="text-danger"><?php echo $errors['image_name']; ?></div>
+                                <?php if ($image_name): ?>
+                                    <small class="text-success">Uploaded file: <?php echo htmlspecialchars($image_name); ?></small>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Address (optional)</label>
+                        <textarea name="address" class="form-control"><?php echo htmlspecialchars($address); ?></textarea>
+                        <div class="text-danger"><?php echo $errors['address']; ?></div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
 <?php include('templates/footer.php'); ?>
+
 </html>

@@ -9,6 +9,11 @@
     src: url(fonts/Cera\ Pro\ Medium.otf);
 }
 
+@font-face {
+    font-family: cera_light;
+    src: url(fonts/Cera\ Pro\ Light.otf);
+}
+
 .brand {
     width: 8em !important;
 }
