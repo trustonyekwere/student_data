@@ -1,5 +1,35 @@
 <?php
 
+include('connect.php');
+
+$username = $password = "";
+
+$error = array ('username' => '', 'password' => '');
+
+if (isset($_POST['submit'])) {
+    
+    // Check username
+    if (empty($_POST['username'])) {
+        $error['username'] = 'Username is required <br />';
+    }   else {
+        $username = $_POST['username'];
+        // only allow alphanumeric characters and underscores
+        if (!preg_match("/^[a-zA-Z0-9_]+$/", $username)) {
+            $error['username'] = 'Username can only contain letters, numbers, and underscores.';
+        }
+    }
+
+    // Check password
+    if (empty($_POST['password'])) {
+        $error['password'] = 'Password is required <br />';
+    }   else {
+        $password = $_POST['password'];
+        // Minimum length of 8 characters
+        if (strlen($password) < 8) {
+            $error['password'] = 'Password must be at least 8 characters long.';
+        }
+    }
+}
 
 
 ?>
@@ -26,27 +56,34 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-secondary" href="https://coresystech.ng/" target="_blank">Back To Home</a>
-                        </li>
+                        <div class="text-center d-lg-none d-flex justify-content-center">
+                            <li class="nav-item" style="width: 12rem; list-style: none;">
+                                <a class="nav-link btn btn-secondary" href="https://coresystech.ng/" target="_blank">Back To Home</a>
+                            </li>
+                        </div>
+                        <div class="d-none d-lg-block">
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-secondary" href="https://coresystech.ng/" target="_blank">Back To Home</a>
+                            </li>
+                        </div>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main style="font-family: cera_light;">
+    <main style="font-family: cera_light !important ;">
         <div class="container mt-5 py-5 justify-content-center align-items-center d-flex">
             <div class="card p-5 mt-5 border-0 shadow-lg" style="width: 35rem;">
                 <h2 class="blue mb-4 text-center" >Admin Login</h2>
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                     <div>
                         <label class="form-label">Username:</label>
-                        <input class="form-control" type="text" name="username" required placeholder="Enter your username"><br>
+                        <input class="form-control" type="text" name="username" placeholder="Enter your username"><br>
                     </div>
                     <div>
                         <label class="form-label">Password:</label>
-                        <input class="form-control" type="password" name="password" required placeholder="Enter your password"><br><br>
+                        <input class="form-control" type="password" name="password" placeholder="Enter your password"><br><br>
                     </div>
                     <div class="text-center">
                         <input type="submit" class="btn btn-primary" value="Login">

@@ -17,9 +17,16 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-secondary" href="https://coresystech.ng/" target="_blank">Back To Home</a>
-                        </li>
+                        <div class="text-center d-lg-none d-flex justify-content-center">
+                            <li class="nav-item" style="width: 12rem; list-style: none;">
+                                <a class="nav-link btn btn-secondary" href="https://coresystech.ng/" target="_blank">Back To Home</a>
+                            </li>
+                        </div>
+                        <div class="d-none d-lg-block">
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-secondary" href="https://coresystech.ng/" target="_blank">Back To Home</a>
+                            </li>
+                        </div>
                     </ul>
                 </div>
             </div>
