@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
 </head>
-<body>
+<body class="bg-light">
     <main>
         <div class="container justify-content-center align-items-center text-center d-flex vh-100">
             <div class="card p-4 border-0 shadow-lg" style="width: 35rem;">
