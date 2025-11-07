@@ -1,14 +1,14 @@
 <?php
 
-session_start();
+    session_start();
 
-if($_SERVER['QUERY_STRING'] == 'noname') {
-    unset($_SESSION['username']);  // Log out user by unsetting username (if there is no username registered)
-}
+    if($_SERVER['QUERY_STRING'] == 'noname') {
+        unset($_SESSION['username']);  // Log out user by unsetting username (if there is no username registered)
+    }
 
-$username =  $_SESSION['username'] ?? 'Guest';
+    $username =  $_SESSION['username'] ?? 'Guest';
 
-include('connect.php');
+    include('connect.php');
 
 
 ?>

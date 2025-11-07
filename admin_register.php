@@ -58,6 +58,24 @@ if (isset($_POST['submit'])) {
         $password = mysqli_real_escape_string($connect, $_POST['password']);
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
+        // check if email already exists
+        $check_email_query = "SELECT email FROM admin_reg WHERE email = '$email' ";
+        $check_email_query_run = mysqli_query($connect, $check_email_query);
+        
+        if(mysqli_num_rows($check_email_query_run) > 0) {
+            $error['email'] = "Email already registered.";
+            // header('Location: admin_register.php');
+        }
+
+        // check if username already exists
+        $check_username_query = "SELECT username FROM admin_reg WHERE username = '$username' ";
+        $check_username_query_run = mysqli_query($connect, $check_username_query);
+
+        if(mysqli_num_rows($check_username_query_run) > 0) {
+            $error['username'] = "Username already taken.";
+            // header('Location: admin_register.php');
+        }
+
         // check if passwords match
         if ($password == $confirm_password) {
             // insert values
