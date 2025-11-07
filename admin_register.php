@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
         $username = mysqli_real_escape_string($connect, $_POST['username']);
         $email = mysqli_real_escape_string($connect, $_POST['email']);
         $password = mysqli_real_escape_string($connect, $_POST['password']);
-        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT); // hash password before storing
 
         // check if email already exists
         $check_email_query = "SELECT email FROM admin_reg WHERE email = '$email' ";
@@ -112,6 +112,17 @@ if (isset($_POST['submit'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <style>
+        .log {
+            text-decoration: none;
+            color: #134074;
+        }
+
+        .log:hover {
+            text-decoration: underline;
+            color: #134074;
+        }
+    </style>
 </head>
 
 <body class="bg-light">
@@ -177,8 +188,11 @@ if (isset($_POST['submit'])) {
                         <input class="form-control" type="password" name="confirm_password" value="<?php echo htmlspecialchars($confirm_password); ?>" placeholder="Confirm password">
                         <br>
                     </div>
-                    <div class="text-center">
-                        <input type="submit" name="submit" class="btn btn-primary" value="Login">
+                    <div class="text-center ">
+                        <input type="submit" name="submit" class="btn btn-primary w-100" value="Login">
+                    </div>
+                    <div class="text-center mt-3">
+                        <p>Already have an account? <a href="admin_login.php" class="log">login</a></p>
                     </div>
                 </form>
             </div>

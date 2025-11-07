@@ -50,9 +50,9 @@ if (isset($_POST['submit'])) {
             $row = mysqli_fetch_assoc($login_query_run);
             $hashed = $row['password']; // should be a hash from registration
 
-            // verify password
+            // verify password by compaing to hashed password
             if (password_verify($password_raw, $hashed)) {
-                // success — set session only after verification
+                // success — set session only after password is verified
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['auth'] = true;
                 $_SESSION['authuser'] = [
@@ -84,6 +84,17 @@ if (isset($_POST['submit'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <style>
+        .log {
+            text-decoration: none;
+            color: #134074;
+        }
+
+        .log:hover {
+            text-decoration: underline;
+            color: #134074;
+        }
+    </style>
 </head>
 
 <body class="bg-light">
@@ -142,10 +153,13 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div>
                         <label class="form-label">Password:</label>
-                        <input class="form-control" type="password" value="<?php echo htmlspecialchars($password); ?>" name="password" placeholder="Enter your password"><br><br>
+                        <input class="form-control" type="password" value="<?php echo htmlspecialchars($password); ?>" name="password" placeholder="Enter your password"><br>
                     </div>
                     <div class="text-center">
-                        <input type="submit" name="submit" class="btn btn-primary" value="Login">
+                        <input type="submit" name="submit" class="btn btn-primary w-100" value="Login">
+                    </div>
+                    <div class="text-center mt-3">
+                        <p>Don't have an account? <a href="admin_register.php" class="log">Register</a></p>
                     </div>
                 </form>
             </div>
