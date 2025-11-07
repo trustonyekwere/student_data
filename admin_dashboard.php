@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+
+if($_SERVER['QUERY_STRING'] == 'noname') {
+    unset($_SESSION['username']);  // Log out user by unsetting username (if there is no username registered)
+}
+
+$username =  $_SESSION['username'] ?? 'Guest';
+
 include('connect.php');
 
 
@@ -52,7 +60,7 @@ include('connect.php');
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav">
                         <div class="d-flex bg rounded-pill p-1 align-items-center" data-bs-toggle="dropdown" style="cursor: pointer;">
-                            <p class="px-2 mb-0">Welcome, Collins</p>
+                            <p class="px-2 mb-0">Welcome, <?php echo htmlspecialchars($username); ?></p>
                             <li class="nav-item dropdown mb-0">
                                 <a href="#" class="nav-icon pe-md-0">
                                     <img src="img/avatar.jpg" class="avatar img-fluid rounded-pill" alt="">

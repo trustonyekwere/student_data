@@ -1,6 +1,8 @@
 <?php
 
 session_start();
+$_SESSION['username'] = $_POST['username'];
+
 include('connect.php');
 
 $username = $password = "";
@@ -8,6 +10,7 @@ $username = $password = "";
 $errors = array ('username' => '', 'password' => '');
 
 if (isset($_POST['submit'])) {
+
     
     // Check username
     if (empty($_POST['username'])) {
