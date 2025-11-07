@@ -1,10 +1,11 @@
 <?php
 
+session_start();
 include('connect.php');
 
 $username = $password = "";
 
-$error = array ('username' => '', 'password' => '');
+$errors = array ('username' => '', 'password' => '');
 
 if (isset($_POST['submit'])) {
     
@@ -40,7 +41,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin login | CORE-TECH</title>
+    <title>Admin Login | CORE-TECH</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
@@ -76,6 +77,13 @@ if (isset($_POST['submit'])) {
         <div class="container mt-5 py-5 justify-content-center align-items-center d-flex">
             <div class="card p-5 mt-5 border-0 shadow-lg" style="width: 35rem;">
                 <h2 class="blue mb-4 text-center" >Admin Login</h2>
+                <?php if (!empty($_SESSION['success'])): ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo htmlspecialchars($_SESSION['success']); unset($_SESSION['success']); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
+
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                     <div>
                         <label class="form-label">Username:</label>

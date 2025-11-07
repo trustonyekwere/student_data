@@ -130,7 +130,7 @@ if (isset($_POST['submit'])) {
         $image_name = mysqli_real_escape_string($connect, $_FILES['image_name']['name']); // if file upload
 
         // create sql
-        $sql = "INSERT INTO details (email, first_name, last_name, date_of_birth, sex, marital_status, address, image_name) VALUES ('$email', '$firstname', '$lastname', '$dateofbirth', '$sex', '$maritalstatus', '$address', '$image_name')";
+        $sql = "INSERT INTO student_reg (email, first_name, last_name, date_of_birth, sex, marital_status, address, image_name) VALUES ('$email', '$firstname', '$lastname', '$dateofbirth', '$sex', '$maritalstatus', '$address', '$image_name')";
 
         // save to db and check
         if (mysqli_query($connect, $sql)) {

@@ -78,3 +78,27 @@ a.sidebar-link {
 #sidebar.collapsed {
     margin-left: -250px;
 }
+
+.btn-tertiary {
+    background-color: transparent;
+    border-color: #081828;
+    color: #fff;
+}
+
+.btn-tertiary:hover {
+    /* background-color: #6c757d; */
+    border-color: #fff;
+    color: #fff;
+}
+
+.special-effects {
+    background: rgba(13,110,253,0.8);
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+.special-effects:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 25px rgba(13,110,253,0.4);
+}
