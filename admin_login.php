@@ -1,19 +1,19 @@
 <?php
 
+session_start();
 include('connect.php');
 
 $username = $password = "";
 
-$errors = array ('username' => '', 'password' => '');
+$error = array ('username' => '', 'password' => '', 'general' => '');
 
 if (isset($_POST['submit'])) {
     
-    session_start();
     $_SESSION['username'] = $_POST['username'];
     
     // Check username
     if (empty($_POST['username'])) {
-        $error['username'] = 'Username is required <br />';
+        $error['username'] = 'Username is required';
     }   else {
         $username = $_POST['username'];
         // only allow alphanumeric characters and underscores
@@ -24,12 +24,49 @@ if (isset($_POST['submit'])) {
 
     // Check password
     if (empty($_POST['password'])) {
-        $error['password'] = 'Password is required <br />';
+        $error['password'] = 'Password is required';
     }   else {
         $password = $_POST['password'];
         // Minimum length of 8 characters
         if (strlen($password) < 8) {
             $error['password'] = 'Password must be at least 8 characters long.';
+        }
+    }
+
+        // if any errors, do not insert
+    if (array_filter($error)) {
+        // errors exist — they will be shown in the form below
+    } else {
+        // sanitize and fetch
+        $username = mysqli_real_escape_string($connect, $_POST['username']);
+        $password_raw = $_POST['password']; // raw password for verification
+
+        // create sql
+        $login_query = "SELECT * FROM admin_reg WHERE username = '$username' ";
+        $login_query_run = mysqli_query($connect, $login_query);
+
+        // check if user exists
+        if (mysqli_num_rows($login_query_run) > 0) {
+            $row = mysqli_fetch_assoc($login_query_run);
+            $hashed = $row['password']; // should be a hash from registration
+
+            // verify password
+            if (password_verify($password_raw, $hashed)) {
+                // success — set session only after verification
+                $_SESSION['id'] = $row['id'];
+                $_SESSION['auth'] = true;
+                $_SESSION['authuser'] = [
+                    'username' => $row['username'],
+                    'password' => $row['password']
+                ];
+                $_SESSION['success'] = "Login successful. Welcome back, " . $row['username'] . ".";
+                header('Location: admin_dashboard.php');
+                exit;
+            } else {
+                $error['general'] = 'Invalid credentials.';
+            }
+        } else {
+            $error['general'] = 'No user found with that username.';
         }
     }
 }
@@ -46,7 +83,7 @@ if (isset($_POST['submit'])) {
     <title>Admin Login | CORE-TECH</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 </head>
 
 <body class="bg-light">
@@ -79,9 +116,21 @@ if (isset($_POST['submit'])) {
         <div class="container mt-5 py-5 justify-content-center align-items-center d-flex">
             <div class="card p-5 mt-5 border-0 shadow-lg" style="width: 35rem;">
                 <h2 class="blue mb-4 text-center" >Admin Login</h2>
+                <!-- display error alerts -->
                 <?php if (!empty($_SESSION['success'])): ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?php echo htmlspecialchars($_SESSION['success']); unset($_SESSION['success']); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
+                <?php if (array_filter($error)): ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>There were some problems:</strong>
+                        <ul class="mb-0">
+                        <?php foreach ($error as $msg): if ($msg): ?>
+                            <li><?php echo htmlspecialchars($msg); ?></li>
+                        <?php endif; endforeach; ?>
+                        </ul>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php endif; ?>
@@ -89,14 +138,14 @@ if (isset($_POST['submit'])) {
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                     <div>
                         <label class="form-label">Username:</label>
-                        <input class="form-control" type="text" name="username" placeholder="Enter your username"><br>
+                        <input class="form-control" type="text" value="<?php echo htmlspecialchars($username); ?>" name="username" placeholder="Enter your username"><br>
                     </div>
                     <div>
                         <label class="form-label">Password:</label>
-                        <input class="form-control" type="password" name="password" placeholder="Enter your password"><br><br>
+                        <input class="form-control" type="password" value="<?php echo htmlspecialchars($password); ?>" name="password" placeholder="Enter your password"><br><br>
                     </div>
                     <div class="text-center">
-                        <input type="submit" class="btn btn-primary" value="Login">
+                        <input type="submit" name="submit" class="btn btn-primary" value="Login">
                     </div>
                 </form>
             </div>

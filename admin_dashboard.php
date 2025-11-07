@@ -77,7 +77,13 @@
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
-                    <div class="mb-3">
+                    <?php if (!empty($_SESSION['success'])): ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <?php echo htmlspecialchars($_SESSION['success']); unset($_SESSION['success']); ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
+                    <div class="mt-3 mb-4">
                         <h4>Admin Dashboard</h4>
                     </div>
                     <div class="row">
