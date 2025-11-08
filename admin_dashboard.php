@@ -43,7 +43,6 @@
         color: #fff !important;
         background-color: #0e2a46ff !important;
         }
-
     </style>
 </head>
 <body>
