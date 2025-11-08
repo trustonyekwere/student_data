@@ -6,6 +6,14 @@
         unset($_SESSION['username']);  // Log out user by unsetting username (if there is no username registered)
     }
 
+    // Check if user is authenticated
+    if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== true) {
+        $_SESSION['error'] = "Please log in to continue.";
+        header("Location: admin_login.php");
+        exit;
+    }
+
+    // Get username from session or set to 'Guest' if not available
     $username =  $_SESSION['username'] ?? 'Guest';
 
     include('connect.php');
@@ -23,6 +31,20 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <link rel="stylesheet" href="dashboard_style.css">
+    <style>
+        #userDropdown {
+        color: #fff !important; /* or whatever color you want */
+        text-decoration: none;
+        }
+
+        #userDropdown:hover,
+        #userDropdown:focus,
+        #userDropdown.show {
+        color: #fff !important;
+        background-color: #0e2a46ff !important;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -59,21 +81,22 @@
                 </div>
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav">
-                        <div class="d-flex bg rounded-pill p-1 align-items-center" data-bs-toggle="dropdown" style="cursor: pointer;">
-                            <p class="px-2 mb-0">Welcome, <?php echo htmlspecialchars($username); ?></p>
-                            <li class="nav-item dropdown mb-0">
-                                <a href="#" class="nav-icon pe-md-0">
-                                    <img src="img/avatar.jpg" class="avatar img-fluid rounded-pill" alt="">
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="#" class="dropdown-item"><i class="fa-solid fa-user fs-5 pe-1"></i>Profile</a>
-                                    <a href="#" class="dropdown-item"><i class="fa-solid fa-gear fs-5 pe-1"></i>Settings</a>
-                                    <a href="#" class="dropdown-item"><i class="fa-solid fa-right-from-bracket fs-5 text-danger"></i> Logout</a>
-                                </div>
-                            </li>
-                        </div>
+                        <li class="nav-item dropdown ms-2">
+                        <a id="userDropdown" class="nav-link d-flex align-items-center rounded-pill bg px-1 pe-0" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer;">
+                            <span class="px-2 mb-0">Welcome, <?php echo htmlspecialchars($username); ?></span>
+                            <img src="img/avatar.jpg" class="avatar img-fluid rounded-pill me-2" alt="" style="width:40px;height:40px;object-fit:contain;">
+                        </a>
+
+                        <!-- dropdown -->
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user fs-5 pe-1"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear fs-5 pe-1"></i> Settings</a></li>
+                            <li><a class="dropdown-item text-danger" href="logout.php"><i class="fa-solid fa-right-from-bracket fs-5 pe-1"></i> Logout</a></li>
+                        </ul>
+                        </li>
                     </ul>
                 </div>
+
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
