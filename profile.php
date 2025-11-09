@@ -2,28 +2,30 @@
 
     session_start();
 
-    if($_SERVER['QUERY_STRING'] == 'noname') {
-        unset($_SESSION['username']);  // Log out user by unsetting username (if there is no username registered)
-    }
-
-    // Check if user is authenticated
-    if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== true) {
-        $_SESSION['error'] = "Please log in to continue.";
-        header("Location: admin_login.php");
-        exit;
-    }
-
-    // Get username from session or set to 'Guest' if not available
-    $username =  $_SESSION['username'] ?? 'Guest';
-
     include('connect.php');
 
-    $sql = "SELECT * FROM student_reg";
-    $result = mysqli_query($connect, $sql); 
+    $username =  $_SESSION['username'] ?? 'Guest';
 
-    $sql2 = "SELECT * FROM admin_reg";
-    $result2 = mysqli_query($connect, $sql2); 
+    // check GET request id parameter
+    if(isset($_GET['id'])) {
+        $id = mysqli_real_escape_string($connect, $_GET['id']); // ensure no injection of malicious script from the unique id
 
+        // make sql
+        $sql2 = "SELECT * FROM admin_reg WHERE id = $id";
+
+        // get the query result
+        $result2 = mysqli_query($connect, $sql2);
+
+        // fetch the result in array format
+        $row2 = mysqli_fetch_assoc($result2);
+
+        // free result memory
+        mysqli_free_result($result2);
+        
+        // close connection
+        mysqli_close($connect);
+
+    }
 
 ?>
 
@@ -108,15 +110,11 @@
                         </a>
 
                         <!-- dropdown -->
-                        <?php while($row2 = mysqli_fetch_assoc($result2)) { ?>
-
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="profile.php?id=<?php echo $row2['id'] ?>"><i class="fa-solid fa-user fs-5 pe-1"></i> Profile</a></li>
-                                <li><a class="dropdown-item text-muted" href="#"><i class="fa-solid fa-gear fs-5 pe-1"></i> Settings</a></li>
-                                <li><a class="dropdown-item text-danger" href="logout.php"><i class="fa-solid fa-right-from-bracket fs-5 pe-1"></i> Logout</a></li>
-                            </ul>
-
-                        <?php } ?>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user fs-5 pe-1"></i> Profile</a></li>
+                            <li><a class="dropdown-item text-muted" href="#"><i class="fa-solid fa-gear fs-5 pe-1"></i> Settings</a></li>
+                            <li><a class="dropdown-item text-danger" href="logout.php"><i class="fa-solid fa-right-from-bracket fs-5 pe-1"></i> Logout</a></li>
+                        </ul>
                         </li>
                     </ul>
                 </div>
@@ -131,67 +129,32 @@
                         </div>
                     <?php endif; ?>
                     <div class="mt-3 mb-4">
-                        <h2>Admin Dashboard</h2>
-                        <h5 class="mb-0">Overview of student data</h5>
+                        <h2>User Profile</h2>
+                        <h5 class="mb-0">User details</h5>
                     </div>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="blue">Id</th>
-                                <th scope="col" class="blue">First name</th>
-                                <th scope="col" class="blue">Last name</th>
-                                <th scope="col" class="blue">Email</th>
-                                <th scope="col" class="blue">Sex</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while($row = mysqli_fetch_assoc($result)) { ?>
-
-                                <tr>
-                                    <th scope="row"><?php echo htmlspecialchars($row['id']); ?></th>
-                                    <td><?php echo htmlspecialchars($row['first_name']); ?></td>
-                                    <td><?php echo htmlspecialchars($row['last_name']); ?></td>
-                                    <td><?php echo htmlspecialchars($row['email']); ?></td>
-                                    <td><?php echo htmlspecialchars($row['sex']); ?></td>
-                                    <td><a href="student_details.php?id=<?php echo $row['id'] ?>">more details</a></td>
-                                </tr>
-
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                    <!-- cards -->
-                    <!-- <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <a href="" style="text-decoration: none">
-                                <div class="card special-effects border-0 text-white bg-primary h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Active Students</h5>
-                                        <p class="card-text fs-1 text-end">35</p>
+                    <?php if($row2): ?>
+                        <div class="card w-75">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <p class="fs-4" >Your Profile</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fs-5 text-muted">Joined: <?php echo ($row2['created_at']); ?></p>
                                     </div>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <a href="" style="text-decoration: none">
-                                <div class="card special-effects border-0 text-white bg-success h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Total Courses</h5>
-                                        <p class="card-text fs-1 text-end">12</p>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <img src="img/avatar.jpg" class="img-fluid w-100 rounded-2" alt="">
+                                    </div>
+                                    <div class="col-6 pt-4">
+                                        <p class="fs-5">Username: <?php echo ($row2['username']); ?></p>
+                                        <p class="fs-5">Email: <?php echo ($row2['email']); ?></p>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <a href="" style="text-decoration: none">
-                                <div class="card special-effects border-0 text-white bg-warning h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Pending Registrations</h5>
-                                        <p class="card-text fs-1 text-end">7</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div> -->
+                    <?php endif; ?>
                 </div>
             </main>
         </div>
