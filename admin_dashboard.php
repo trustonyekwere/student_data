@@ -1,22 +1,33 @@
 <?php
 
     session_start();
-
+    
     if($_SERVER['QUERY_STRING'] == 'noname') {
         unset($_SESSION['username']);  // Log out user by unsetting username (if there is no username registered)
     }
-
+    
     // Check if user is authenticated
     if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== true) {
         $_SESSION['error'] = "Please log in to continue.";
         header("Location: admin_login.php");
         exit;
     }
-
+    
     // Get username from session or set to 'Guest' if not available
     $username =  $_SESSION['username'] ?? 'Guest';
-
+    
     include('connect.php');
+
+    // Fetch admin details
+    if ($username) {
+        $stmt = $connect->prepare("SELECT * FROM admin_reg WHERE username = ?"); // prepared sql statement to prevent SQL injection
+        $stmt->bind_param("s", $username); // 's' specifies the variable type => 'string'... "i" => integer, "d" => double, "b" => blob
+        $stmt->execute(); // execute/run the query
+        $result = $stmt->get_result(); // get the mysqli result of all executed query data
+        $admin = $result->fetch_assoc(); // fetch data as an associative array
+    } else {
+        $admin = null; // no admin found
+    }
 
     $sql = "SELECT * FROM student_reg";
     $result = mysqli_query($connect, $sql); 

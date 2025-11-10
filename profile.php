@@ -140,6 +140,16 @@
                                     <div class="col-7 pt-0">
                                         <p class="fs-4">Username: <span class="fs-5" ><?php echo htmlspecialchars($admin['username']); ?></span></p>
                                         <p class="fs-4">Email: <span class="fs-5" ><?php echo htmlspecialchars($admin['email']); ?></span></p>
+                                        <?php     
+                                            // super admin check
+                                            $_SESSION['is_super'] = $admin['is_super'];
+
+                                            if ($_SESSION['is_super'] == 1) {
+                                                echo "You are the super admin!";
+                                            } else {
+                                                echo "Normal admin access";
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </div>

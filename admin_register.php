@@ -189,7 +189,7 @@ if (isset($_POST['submit'])) {
                         <br>
                     </div>
                     <div class="text-center ">
-                        <input type="submit" name="submit" class="btn btn-primary w-100" value="Login">
+                        <input type="submit" name="submit" class="btn btn-primary w-100" value="Register">
                     </div>
                     <div class="text-center mt-3">
                         <p>Already have an account? <a href="admin_login.php" class="log">login</a></p>
