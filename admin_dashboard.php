@@ -21,10 +21,6 @@
     $sql = "SELECT * FROM student_reg";
     $result = mysqli_query($connect, $sql); 
 
-    $sql2 = "SELECT * FROM admin_reg";
-    $result2 = mysqli_query($connect, $sql2); 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -102,21 +98,23 @@
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown ms-2">
-                        <a id="userDropdown" class="nav-link d-flex align-items-center rounded-pill bg px-1 pe-0" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer;">
-                            <span class="px-2 mb-0">Welcome, <?php echo htmlspecialchars($username); ?></span>
-                            <img src="img/avatar.jpg" class="avatar img-fluid rounded-pill me-2" alt="" style="width:40px;height:40px;object-fit:contain;">
-                        </a>
+                            <a id="userDropdown" class="nav-link d-flex align-items-center rounded-pill bg px-1 pe-0" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer;">
+                                <span class="px-2 mb-0">Welcome, <?php echo htmlspecialchars($username); ?></span>
+                                <img src="img/avatar.jpg" class="avatar img-fluid rounded-pill me-2" alt="" style="width:40px;height:40px;object-fit:contain;">
+                            </a>
 
-                        <!-- dropdown -->
-                        <?php while($row2 = mysqli_fetch_assoc($result2)) { ?>
-
+                            <!-- dropdown -->
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="profile.php?id=<?php echo $row2['id'] ?>"><i class="fa-solid fa-user fs-5 pe-1"></i> Profile</a></li>
-                                <li><a class="dropdown-item text-muted" href="#"><i class="fa-solid fa-gear fs-5 pe-1"></i> Settings</a></li>
-                                <li><a class="dropdown-item text-danger" href="logout.php"><i class="fa-solid fa-right-from-bracket fs-5 pe-1"></i> Logout</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="profile.php"><i class="fa-solid fa-user fs-5 pe-1"></i> Profile</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-muted" href="#"><i class="fa-solid fa-gear fs-5 pe-1"></i> Settings</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="logout.php"><i class="fa-solid fa-right-from-bracket fs-5 pe-1"></i> Logout</a>
+                                </li>
                             </ul>
-
-                        <?php } ?>
                         </li>
                     </ul>
                 </div>
