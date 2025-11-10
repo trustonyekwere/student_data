@@ -8,13 +8,13 @@
     
     // Fetch admin details
     if ($username) {
-        $stmt = $connect->prepare("SELECT * FROM admin_reg WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $admin = $result->fetch_assoc();
+        $stmt = $connect->prepare("SELECT * FROM admin_reg WHERE username = ?"); // prepared sql statement to prevent SQL injection
+        $stmt->bind_param("s", $username); // 's' specifies the variable type => 'string'... "i" => integer, "d" => double, "b" => blob
+        $stmt->execute(); // execute/run the query
+        $result = $stmt->get_result(); // get the mysqli result of all executed query data
+        $admin = $result->fetch_assoc(); // fetch data as an associative array
     } else {
-        $admin = null;
+        $admin = null; // no admin found
     }
 
 ?>
@@ -123,23 +123,23 @@
                         <h5 class="mb-0">User details</h5>
                     </div>
                     <?php if($admin): ?>
-                        <div class="card w-75">
+                        <div class="card w-50">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-8">
-                                        <p class="fs-2" >Your Profile</p>
+                                    <div class="col-6">
+                                        <p class="fs-3" >Your Profile</p>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-6 text-end pt-2">
                                         <p class="fs-5 text-muted">Joined: <?php echo htmlspecialchars($admin['created_at']); ?></p>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-5">
                                         <img src="img/avatar.jpg" class="img-fluid w-100 rounded-2" alt="">
                                     </div>
-                                    <div class="col-6 pt-4">
-                                        <p class="fs-5">Username: <?php echo htmlspecialchars($admin['username']); ?></p>
-                                        <p class="fs-5">Email: <?php echo htmlspecialchars($admin['email']); ?></p>
+                                    <div class="col-7 pt-0">
+                                        <p class="fs-4">Username: <span class="fs-5" ><?php echo htmlspecialchars($admin['username']); ?></span></p>
+                                        <p class="fs-4">Email: <span class="fs-5" ><?php echo htmlspecialchars($admin['email']); ?></span></p>
                                     </div>
                                 </div>
                             </div>
