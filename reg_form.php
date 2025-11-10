@@ -70,50 +70,7 @@ if (isset($_POST['submit'])) {
     }
 
     // handle file upload (passport)
-    if (isset($_FILES['image_name']) && $_FILES['image_name']['error'] !== UPLOAD_ERR_NO_FILE) {
-        $file = $_FILES['image_name'];
-
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            $errors['image_name'] = 'File upload error (code: ' . $file['error'] . ')';
-        } else {
-            // basic checks
-            $allowed_mime = ['image/jpeg', 'image/png', 'image/gif'];
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $mime = finfo_file($finfo, $file['tmp_name']);
-            finfo_close($finfo);
-
-            if (!in_array($mime, $allowed_mime)) {
-                $errors['image_name'] = 'Only JPG, PNG or GIF images are allowed';
-            }
-
-            $maxBytes = 2 * 1024 * 1024; // 2 MB
-            if ($file['size'] > $maxBytes) {
-                $errors['image_name'] = 'File is too large. Max 2MB allowed';
-            }
-
-            // move file if no file-related errors
-            if ($errors['image_name'] === '') {
-                $uploadDir = __DIR__ . '/uploads/';
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0755, true);
-                }
-
-                $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-                $safeName = uniqid('passport_', true) . '.' . $ext;
-                $destination = $uploadDir . $safeName;
-
-                if (!move_uploaded_file($file['tmp_name'], $destination)) {
-                    $errors['image_name'] = 'Failed to move uploaded file';
-                } else {
-                    // store relative path for DB
-                    $image_name = 'uploads/' . $safeName;
-                }
-            }
-        }
-    } else {
-        // no file uploaded
-        $errors['image_name'] = 'Passport image is required';
-    }
+    
 
     // if any errors, do not insert
     if (array_filter($errors)) {
@@ -127,18 +84,33 @@ if (isset($_POST['submit'])) {
         $sex = mysqli_real_escape_string($connect, $_POST['sex']);
         $maritalstatus = mysqli_real_escape_string($connect, $_POST['marital_status']);
         $address = mysqli_real_escape_string($connect, $_POST['address']);
-        $image_name = mysqli_real_escape_string($connect, $_FILES['image_name']['name']); // if file upload
+        $image_name = $_FILES['image_name']['name'];
 
         // create sql
         $sql = "INSERT INTO student_reg (email, first_name, last_name, date_of_birth, sex, marital_status, address, image_name) VALUES ('$email', '$firstname', '$lastname', '$dateofbirth', '$sex', '$maritalstatus', '$address', '$image_name')";
 
-        // save to db and check
-        if (mysqli_query($connect, $sql)) {
+        $send_query = mysqli_query($connect, $sql);
+
+        // set target directory
+        $target_dir = 'uploads';
+
+        // get temp file location
+        $tmp_address = $_FILES['image_name']['tmp_name'];
+
+        // upload image to server
+        $upload_img = move_uploaded_file($tmp_address, "$target_dir/$image_name");
+
+        if ($upload_img) {
             header('Location: success.php');
-            exit;
-        } else {
-            $errors['general'] = 'Query error: ' . mysqli_error($connect);
         }
+
+        // save to db and check
+        // if (mysqli_query($connect, $sql)) {
+        //     header('Location: success.php');
+        //     exit;
+        // } else {
+        //     $errors['general'] = 'Query error: ' . mysqli_error($connect);
+        // }
     }
 }
 ?>

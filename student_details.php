@@ -146,16 +146,16 @@
                             <div class="card-body">
                                 <p class="fs-4" >Student Details</p>
                                 <div class="row">
-                                    <div class="col-6">
-                                        <img src="<?php echo ($row['image_name']); ?>" class="img-fluid w-100 rounded-2" alt="user_image">
+                                    <div class="col-5">
+                                        <img src="uploads/<?php echo ($row['image_name']); ?>" class="w-100 shadow-lg" alt="user_image">
                                     </div>
-                                    <div class="col-6 pt-4">
-                                        <p class="fs-5">First name: <?php echo ($row['first_name']); ?></p>
-                                        <p class="fs-5">Last name: <?php echo ($row['last_name']); ?></p>
+                                    <div class="col-7 pt-4">
+                                        <p class="fs-5">First Name: <?php echo ($row['first_name']); ?></p>
+                                        <p class="fs-5">Last Name: <?php echo ($row['last_name']); ?></p>
                                         <p class="fs-5">Email: <?php echo ($row['email']); ?></p>
                                         <p class="fs-5">Sex: <?php echo ($row['sex']); ?></p>
-                                        <p class="fs-5">Date of birth: <?php echo ($row['date_of_birth']); ?></p>
-                                        <p class="fs-5">Marital status: <?php echo ($row['marital_status']); ?></p>
+                                        <p class="fs-5">Date of Birth: <?php echo ($row['date_of_birth']); ?></p>
+                                        <p class="fs-5">Marital Status: <?php echo ($row['marital_status']); ?></p>
                                     </div>
                                 </div>
                                 <div class="d-flex gap-3 pt-4">
