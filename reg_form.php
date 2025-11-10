@@ -70,7 +70,25 @@ if (isset($_POST['submit'])) {
     }
 
     // handle file upload (passport)
-    
+    if (isset($_FILES['image_name']) && $_FILES['image_name']['error'] === UPLOAD_ERR_OK) {
+        $image_name = $_FILES['image_name']['name'];
+        $file_tmp = $_FILES['image_name']['tmp_name'];
+        $file_size = $_FILES['image_name']['size'];
+        $file_type = $_FILES['image_name']['type'];
+
+        // validate file type (optional)
+        $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!in_array($file_type, $allowed_types)) {
+            $errors['image_name'] = "Only JPG, PNG, and GIF files are allowed";
+        }
+
+        // validate file size (optional)
+        if ($file_size > 2 * 1024 * 1024) { // limit to 2MB
+            $errors['image_name'] = "File size must be less than 2MB";
+        }
+    } else {
+        $errors['image_name'] = "Passport image is required";
+    }
 
     // if any errors, do not insert
     if (array_filter($errors)) {
@@ -102,15 +120,10 @@ if (isset($_POST['submit'])) {
 
         if ($upload_img) {
             header('Location: success.php');
-        }
-
-        // save to db and check
-        // if (mysqli_query($connect, $sql)) {
-        //     header('Location: success.php');
-        //     exit;
-        // } else {
-        //     $errors['general'] = 'Query error: ' . mysqli_error($connect);
-        // }
+            exit;
+        } else {
+            $errors['general'] = 'Query error ' . mysqli_error($connect);
+        }   
     }
 }
 ?>
