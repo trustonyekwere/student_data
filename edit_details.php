@@ -30,23 +30,29 @@ if (isset($_POST['update'])) {
     $phone_number = $_POST['phone_number'];
     $address = $_POST['address'];
 
-    // sql to update student details
+    // sql to update student details using prepared statements
     $update_sql = "UPDATE student_reg SET 
-        first_name = '$first_name',
-        last_name = '$last_name',
-        email = '$email',
-        phone_number = '$phone_number',
-        address = '$address'
-        WHERE id = '$update_id' ";
+        first_name = ?,
+        last_name = ?,
+        email = ?,
+        phone_number = ?,
+        address = ?
+        WHERE id = ?";
 
-    $send_update_query = mysqli_query($connect, $update_sql);
+    // prepare and bind
+    $stmt = mysqli_prepare($connect, $update_sql);
+    // bind parameters "sssssi" means string, string, string, string, string, integer
+    mysqli_stmt_bind_param($stmt, "sssssi", $first_name, $last_name, $email, $phone_number, $address, $update_id);
+    // execute the prepared statement
+    $send_update_query = mysqli_stmt_execute($stmt);
 
-    if ($update_sql) {
+    if ($send_update_query) {
         $_SESSION['success'] = "Details edited successfully";
         // redirect to student details page after update
         header("Location: student_details.php?id=$update_id");
         exit();
     }
+    mysqli_stmt_close($stmt);
 }
 
 ?>

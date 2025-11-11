@@ -129,7 +129,7 @@
                             Files
                         </a>
                     </li>
-                </ul>
+                </ul> 
             </div>
         </aside>
         <div class="main bg-light">
@@ -168,6 +168,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     <?php endif; ?>
+                    
                     <div class="mt-3 mb-4">
                         <h2>Student Profile</h2>
                     </div>
@@ -179,14 +180,14 @@
                                     <div class="col-5">
                                         <img src="uploads/<?php echo ($row['image_name']); ?>" class="w-100 shadow-lg" alt="user_image">
                                     </div>
-                                    <div class="col-7 pt-4">
-                                        <p class="fs-5">First Name: <span class="small"><?php echo ($row['first_name']); ?></span></p>
-                                        <p class="fs-5">Last Name: <span class="small"><?php echo ($row['last_name']); ?></span></p>
-                                        <p class="fs-5">Email: <span class="small"><?php echo ($row['email']); ?></span></p>
-                                        <p class="fs-5">Sex: <span class="small"><?php echo ($row['sex']); ?></span></p>
-                                        <p class="fs-5">Date of Birth: <span class="small"><?php echo ($row['date_of_birth']); ?></span></p>
-                                        <p class="fs-5">Marital Status: <span class="small"><?php echo ($row['marital_status']); ?></span></p>
-                                        <p class="fs-5">Phone Number: <span class="small"><?php echo ($row['phone_number']); ?></span></p>
+                                    <div class="col-7 pt-0">
+                                        <p class="fs-2" ><?php echo $row['first_name'] . ' ' . $row['last_name'];?></p>
+
+                                        <p class="fs-5"><i class="fa-solid fa-envelope fs-4"></i> <a class="click" href="mailto:<?php echo ($row['email']); ?>"><?php echo ($row['email']); ?><i class="fa-solid fa-up-right-from-square ps-2 fs-6"></i></a></p>
+
+                                        <p class="fs-5"><i class="fa-solid fa-phone fs-4"></i> <a class="click" href="tel:<?php echo ($row['phone_number']); ?>"><?php echo ($row['phone_number']); ?><i class="fa-solid fa-up-right-from-square ps-2 fs-6"></i></a></p>
+
+                                        <p class="fs-5"><i class="fa-solid fa-calendar-days fs-4"></i> <span class="small"><?php echo ($row['created_at']); ?></span></p>
                                     </div>
                                 </div>
                                 <div class="d-flex gap-3 pt-4">
