@@ -123,7 +123,7 @@
                         <h5 class="mb-0">User details</h5>
                     </div>
                     <?php if($admin): ?>
-                        <div class="card w-50">
+                        <div class="card w-75">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-6">

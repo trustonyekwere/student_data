@@ -69,6 +69,9 @@
         .blue {
             color: #0e2a46ff;
         }
+        .small {
+            color: #0e2a46ff !important;
+        }
     </style>
 </head>
 <body>
@@ -149,12 +152,12 @@
                                         <img src="uploads/<?php echo ($row['image_name']); ?>" class="w-100 shadow-lg" alt="user_image">
                                     </div>
                                     <div class="col-7 pt-4">
-                                        <p class="fs-5">First Name: <?php echo ($row['first_name']); ?></p>
-                                        <p class="fs-5">Last Name: <?php echo ($row['last_name']); ?></p>
-                                        <p class="fs-5">Email: <?php echo ($row['email']); ?></p>
-                                        <p class="fs-5">Sex: <?php echo ($row['sex']); ?></p>
-                                        <p class="fs-5">Date of Birth: <?php echo ($row['date_of_birth']); ?></p>
-                                        <p class="fs-5">Marital Status: <?php echo ($row['marital_status']); ?></p>
+                                        <p class="fs-5">First Name: <span class="small"><?php echo ($row['first_name']); ?></span></p>
+                                        <p class="fs-5">Last Name: <span class="small"><?php echo ($row['last_name']); ?></span></p>
+                                        <p class="fs-5">Email: <span class="small"><?php echo ($row['email']); ?></span></p>
+                                        <p class="fs-5">Sex: <span class="small"><?php echo ($row['sex']); ?></span></p>
+                                        <p class="fs-5">Date of Birth: <span class="small"><?php echo ($row['date_of_birth']); ?></span></p>
+                                        <p class="fs-5">Marital Status: <span class="small"><?php echo ($row['marital_status']); ?></span></p>
                                     </div>
                                 </div>
                                 <div class="d-flex gap-3 pt-4">
