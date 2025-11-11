@@ -2,11 +2,11 @@
 
 include('connect.php');
 
-$email = $firstname = $lastname = $dateofbirth = $sex = $maritalstatus = $number = $address = $image_name = '';
+$email = $firstname = $lastname = $dateofbirth = $sex = $maritalstatus = $phone_number = $address = $image_name = '';
 
 $errors = array(
     'email' => '', 'firstname' => '', 'lastname' => '', 'dateofbirth' => '',
-    'sex' => '', 'maritalstatus' => '', 'number' => '', 'address' => '', 'image_name' => ''
+    'sex' => '', 'maritalstatus' => '', 'phone_number' => '', 'address' => '', 'image_name' => ''
 );
 
 if (isset($_POST['submit'])) {
@@ -42,13 +42,11 @@ if (isset($_POST['submit'])) {
     }
 
     // check number
-    if (empty($_POST['number'])) {
-        $errors['number'] = "Phone number is required";
+    if (empty($_POST['phone_number'])) {
+        $errors['phone_number'] = "Phone number is required";
     } else {
-        $number = $_POST['number'];
-        if (!preg_match('/^\+?[0-9]{7,15}$/', $number)) { // basic phone number validation
-            $errors['number'] = "Invalid phone number format";
-        }
+        $number = $_POST['phone_number'];
+
     }
 
     // check date of birth
@@ -108,7 +106,7 @@ if (isset($_POST['submit'])) {
         $email = mysqli_real_escape_string($connect, $_POST['email']);
         $firstname = mysqli_real_escape_string($connect, $_POST['firstname']);
         $lastname = mysqli_real_escape_string($connect, $_POST['lastname']);
-        $number = mysqli_real_escape_string($connect, $_POST['number']);
+        $phone_number = mysqli_real_escape_string($connect, $_POST['phone_number']);
         $dateofbirth = mysqli_real_escape_string($connect, $_POST['dateofbirth']);
         $sex = mysqli_real_escape_string($connect, $_POST['sex']);
         $maritalstatus = mysqli_real_escape_string($connect, $_POST['marital_status']);
@@ -116,7 +114,7 @@ if (isset($_POST['submit'])) {
         $image_name = $_FILES['image_name']['name'];
 
         // create sql
-        $sql = "INSERT INTO student_reg (email, first_name, last_name, number, date_of_birth, sex, marital_status, address, image_name) VALUES ('$email', '$firstname', '$lastname', '$number', '$dateofbirth', '$sex', '$maritalstatus', '$address', '$image_name')";
+        $sql = "INSERT INTO student_reg (email, first_name, last_name, phone_number, date_of_birth, sex, marital_status, address, image_name) VALUES ('$email', '$firstname', '$lastname', '$phone_number', '$dateofbirth', '$sex', '$maritalstatus', '$address', '$image_name')";
 
         $send_query = mysqli_query($connect, $sql);
 
@@ -191,7 +189,7 @@ if (isset($_POST['submit'])) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Phone Number</label>
-                                <input type="text" name="number" class="form-control" value="<?php echo htmlspecialchars($number); ?>">
+                                <input type="text" name="phone_number" class="form-control" value="<?php echo htmlspecialchars($phone_number); ?>">
                             </div>
                         </div>
                     </div>

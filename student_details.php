@@ -151,7 +151,7 @@
 
                         <!-- dropdown -->
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user fs-5 pe-1"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="profile.php"><i class="fa-solid fa-user fs-5 pe-1"></i> Profile</a></li>
                             <li><a class="dropdown-item text-muted" href="#"><i class="fa-solid fa-gear fs-5 pe-1"></i> Settings</a></li>
                             <li><a class="dropdown-item text-danger" href="logout.php"><i class="fa-solid fa-right-from-bracket fs-5 pe-1"></i> Logout</a></li>
                         </ul>
@@ -162,8 +162,14 @@
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
+                    <?php if (!empty($_SESSION['success'])): ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <?php echo htmlspecialchars($_SESSION['success']); unset($_SESSION['success']); ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
                     <div class="mt-3 mb-4">
-                        <h2>Student Profile <i class="fa-solid fa-user"></i></h2>
+                        <h2>Student Profile</h2>
                     </div>
                     <?php if($row): ?>
                         <div class="card w-75">
@@ -180,6 +186,7 @@
                                         <p class="fs-5">Sex: <span class="small"><?php echo ($row['sex']); ?></span></p>
                                         <p class="fs-5">Date of Birth: <span class="small"><?php echo ($row['date_of_birth']); ?></span></p>
                                         <p class="fs-5">Marital Status: <span class="small"><?php echo ($row['marital_status']); ?></span></p>
+                                        <p class="fs-5">Phone Number: <span class="small"><?php echo ($row['phone_number']); ?></span></p>
                                     </div>
                                 </div>
                                 <div class="d-flex gap-3 pt-4">
