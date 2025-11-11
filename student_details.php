@@ -191,7 +191,7 @@
                                         <button type="submit" name="delete" class="btn btn-danger shadow-none"><i class="fa-solid fa-trash-can"></i> Delete</button>
                                     </form>
                                     <?php if ($is_super): ?>
-                                        <a class="btn btn-success shadow-none" href="edit_details.php?id=<?php echo $row['id']; ?>"><i class="fa-solid fa-trash-can pe-1"></i>Edit</a>
+                                        <a class="btn btn-success shadow-none" href="edit_details.php?id=<?php echo $row['id']; ?>"><i class="fa-solid fa-pen-to-square pe-1"></i>Edit</a>
                                     <?php endif; ?>
                                 </div>
 
