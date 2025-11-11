@@ -2,11 +2,11 @@
 
 include('connect.php');
 
-$email = $firstname = $lastname = $dateofbirth = $sex = $maritalstatus = $address = $image_name = '';
+$email = $firstname = $lastname = $dateofbirth = $sex = $maritalstatus = $number = $address = $image_name = '';
 
 $errors = array(
     'email' => '', 'firstname' => '', 'lastname' => '', 'dateofbirth' => '',
-    'sex' => '', 'maritalstatus' => '', 'address' => '', 'image_name' => ''
+    'sex' => '', 'maritalstatus' => '', 'number' => '', 'address' => '', 'image_name' => ''
 );
 
 if (isset($_POST['submit'])) {
@@ -38,6 +38,16 @@ if (isset($_POST['submit'])) {
         $lastname = $_POST['lastname'];
         if (!preg_match('/^[a-zA-Z\s.]+$/', $lastname)) { // ensure there are no numbers in the input field
             $errors['lastname'] = "Last name must be letters and spaces only";
+        }
+    }
+
+    // check number
+    if (empty($_POST['number'])) {
+        $errors['number'] = "Phone number is required";
+    } else {
+        $number = $_POST['number'];
+        if (!preg_match('/^\+?[0-9]{7,15}$/', $number)) { // basic phone number validation
+            $errors['number'] = "Invalid phone number format";
         }
     }
 
@@ -98,6 +108,7 @@ if (isset($_POST['submit'])) {
         $email = mysqli_real_escape_string($connect, $_POST['email']);
         $firstname = mysqli_real_escape_string($connect, $_POST['firstname']);
         $lastname = mysqli_real_escape_string($connect, $_POST['lastname']);
+        $number = mysqli_real_escape_string($connect, $_POST['number']);
         $dateofbirth = mysqli_real_escape_string($connect, $_POST['dateofbirth']);
         $sex = mysqli_real_escape_string($connect, $_POST['sex']);
         $maritalstatus = mysqli_real_escape_string($connect, $_POST['marital_status']);
@@ -105,7 +116,7 @@ if (isset($_POST['submit'])) {
         $image_name = $_FILES['image_name']['name'];
 
         // create sql
-        $sql = "INSERT INTO student_reg (email, first_name, last_name, date_of_birth, sex, marital_status, address, image_name) VALUES ('$email', '$firstname', '$lastname', '$dateofbirth', '$sex', '$maritalstatus', '$address', '$image_name')";
+        $sql = "INSERT INTO student_reg (email, first_name, last_name, number, date_of_birth, sex, marital_status, address, image_name) VALUES ('$email', '$firstname', '$lastname', '$number', '$dateofbirth', '$sex', '$maritalstatus', '$address', '$image_name')";
 
         $send_query = mysqli_query($connect, $sql);
 
@@ -169,12 +180,22 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="emailInput" class="form-label">Email address</label>
-                        <input id="emailInput" type="email" value="<?php echo htmlspecialchars($email); ?>" class="form-control" name="email" aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="emailInput" class="form-label">Email address</label>
+                                <input id="emailInput" type="email" value="<?php echo htmlspecialchars($email); ?>" class="form-control" name="email" aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <input type="text" name="number" class="form-control" value="<?php echo htmlspecialchars($number); ?>">
+                            </div>
+                        </div>
                     </div>
-
+                    
                     <div class="row pt-3">
                         <div class="col-md-6">
                             <div class="mb-3">
