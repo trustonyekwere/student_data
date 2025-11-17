@@ -74,7 +74,7 @@
         <aside id="sidebar" class="d-lg-block d-none">
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="./admin_dashboard.php"><img src="img/core_white.png" class="p-1 my-3" style="width: 9rem !important;" alt="CORE-TECH"></a>
+                    <a href="./admin_dashboard.php"><img src="img/core_white.png" class="p-1 my-3" style="width: 8rem !important;" alt="CORE-TECH"></a>
                 </div>
                 <ul class="sidebar-nav">
                     <li class="active reg">
