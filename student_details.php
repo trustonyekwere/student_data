@@ -191,7 +191,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex gap-3 pt-4">
-                                    <a href="admin_dashboard.php" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                                    <a href="student_dashboard.php" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Back</a>
                                     
                                     <!-- delete form -->
                                     <form action="student_details.php" method="POST">
