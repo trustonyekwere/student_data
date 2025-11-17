@@ -183,7 +183,7 @@
                     <!-- cards -->
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <a href="" style="text-decoration: none">
+                            <a href="./student_dashboard.php" style="text-decoration: none">
                                 <div class="card special-effects border-0 text-white bg-success h-100">
                                     <div class="card-body">
                                         <h5 class="card-title">Prospective Students</h5>
@@ -194,7 +194,7 @@
                             </a>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <a href="" style="text-decoration: none">
+                            <a href="./student_dashboard.php" style="text-decoration: none">
                                 <div class="card special-effects border-0 text-white bg-primary h-100">
                                     <div class="card-body">
                                         <h5 class="card-title">Registered Students</h5>
@@ -205,7 +205,7 @@
                             </a>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <a href="" style="text-decoration: none">
+                            <a href="./student_dashboard.php" style="text-decoration: none">
                                 <div class="card special-effects border-0 text-white bg-secondary h-100">
                                     <div class="card-body">
                                         <h5 class="card-title">Graduated Students</h5>
@@ -216,7 +216,7 @@
                             </a>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <a href="" style="text-decoration: none">
+                            <a href="./staff_dashboard.php" style="text-decoration: none">
                                 <div class="card special-effects border-0 text-white bg-dark h-100">
                                     <div class="card-body">
                                         <h5 class="card-title">Staff</h5>

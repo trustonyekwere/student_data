@@ -193,7 +193,7 @@
                                     <td><?php echo htmlspecialchars($row['last_name']); ?></td>
                                     <td><?php echo htmlspecialchars($row['email']); ?></td>
                                     <td><?php echo htmlspecialchars($row['sex']); ?></td>
-                                    <td><a href="student_details.php?id=<?php echo $row['id'] ?>">more details</a></td>
+                                    <td><a href="student_details.php?id=<?php echo $row['id'] ?>"><i class="fa-solid fa-up-right-from-square ps-2 fs-6"></i></a></td>
                                 </tr>
 
                             <?php } ?>
