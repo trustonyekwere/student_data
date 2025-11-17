@@ -167,7 +167,7 @@
                             <?php echo htmlspecialchars($_SESSION['success']); unset($_SESSION['success']); ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                    <?php endif; ?>
+                    <?php endif; ?> 
                     
                     <div class="mt-3 mb-4">
                         <h2>Student Profile</h2>

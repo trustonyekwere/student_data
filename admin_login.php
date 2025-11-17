@@ -85,48 +85,44 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <style>
+        *{
+            overflow-y: hidden;
+        }
+
         .log {
             text-decoration: none;
             color: #134074;
+        }
+
+        .light {
+            font-family: cera_light !important;
+            font-weight: 500 !important;
         }
 
         .log:hover {
             text-decoration: underline;
             color: #134074;
         }
+
+        /* :: is used to style placeholders and other attributes */
+        ::placeholder {
+            font-weight: 600 !important;
+            font-size: smaller;
+            font-family: cera_light !important;
+            font-style: italic !important;
+        }
     </style>
 </head>
 
 <body class="bg-light">
-    <header>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
-            <div class="container">
-                <a class="navbar-brand" href="https://coresystech.ng/"><img src="img/logo.png" class="brand" alt=""></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <div class="text-center d-lg-none d-flex justify-content-center">
-                            <li class="nav-item" style="width: 12rem; list-style: none;">
-                                <a class="nav-link btn btn-secondary" href="https://coresystech.ng/" target="_blank">Back To Home</a>
-                            </li>
-                        </div>
-                        <div class="d-none d-lg-block">
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-secondary" href="https://coresystech.ng/" target="_blank">Back To Home</a>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
 
     <main style="font-family: cera_light !important ;">
         <div class="container mt-5 py-5 justify-content-center align-items-center d-flex">
-            <div class="card p-5 mt-5 border-0 shadow-lg" style="width: 35rem;">
-                <h2 class="blue mb-4 text-center" >Admin Login</h2>
+            <div class="card p-5 border-0 shadow-lg" style="width: 35rem;">
+                <div class="text-center">
+                    <img src="img/logo.png" class="w-50" alt="">
+                </div>
+                <h2 class="light mb-4 fs-5 text-center" >Login to your account</h2>
                 <!-- display error alerts -->
                 <?php if (!empty($_SESSION['success'])): ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -149,23 +145,21 @@ if (isset($_POST['submit'])) {
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                     <div>
                         <label class="form-label">Username:</label>
-                        <input class="form-control" type="text" value="<?php echo htmlspecialchars($username); ?>" name="username" placeholder="Enter your username"><br>
+                        <input class="form-control" type="text" value="<?php echo htmlspecialchars($username); ?>" name="username" placeholder="admin@coresystech.ng"><br>
                     </div>
                     <div>
                         <label class="form-label">Password:</label>
-                        <input class="form-control" type="password" value="<?php echo htmlspecialchars($password); ?>" name="password" placeholder="Enter your password"><br>
+                        <input class="form-control" type="password" value="<?php echo htmlspecialchars($password); ?>" name="password" placeholder="********"><br>
                     </div>
                     <div class="text-center">
                         <input type="submit" name="submit" class="btn btn-primary w-100" value="Login">
                     </div>
-                    <div class="text-center mt-3">
-                        <p>Don't have an account? <a href="admin_register.php" class="log">Register</a></p>
+                    <div class="text-center mt-4">
+                        <!-- <p>Don't have an account? <a href="admin_register.php" class="log">Register</a></p> -->
+                        &copy; 2025 <a href="https://coresystech.ng" target="_blank" class="log">CORE-TECH</a>. <span class="light" >All Rights Reserved.</span>
                     </div>
                 </form>
             </div>
         </div>
     </main>
-
-    <?php include('templates/footer.php'); ?>
-
 </html>
