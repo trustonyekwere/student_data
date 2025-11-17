@@ -117,13 +117,30 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="d-flex gap-3 d-lg-none">
-                    <i class="fa-solid fa-house fs-2"></i>
-                    <i class="fa-solid fa-file-lines fs-2"></i>
+
+                        <a id="userDropdown2" class="nav-link d-flex align-items-center d-flex d-sm-none" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer;">
+                            <i class="fa-solid fa-bars fs-1 ms-2"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-start ps-3 ms-4" aria-labelledby="userDropdown">
+                            <li class="mb-2"><a href="" class="text-dark"><i class="fa-solid fa-grip fs-2"></i></a></li>
+                            <li class="mb-2"><a href="" class="text-dark"><i class="fa-solid fa-graduation-cap fs-2"></i></a></li>
+                            <li class="mb-2"><a href="" class="text-dark"><i class="fa-solid fa-briefcase fs-2"></i></a></li>
+                            <li class="mb-2"><a href="" class="text-dark"><i class="fa-solid fa-sack-dollar fs-2"></i></a></li>
+                            <li class="mb-2"><a href="" class="text-dark"><i class="fa-solid fa-file-lines fs-2"></i></a></li>
+                        </ul>
                 </div>
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown ms-2">
-                        <a id="userDropdown" class="nav-link d-flex align-items-center rounded-pill bg px-1 pe-0" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer;">
+
+                        <!-- mobile view -->
+                        <a id="userDropdown2" class="nav-link d-flex align-items-center d-flex d-sm-none" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer;">
+                            <img src="img/avatar.jpg" class="avatar img-fluid rounded-pill me-2" alt="" style="width:50px;height:50px;object-fit:contain;">
+                        </a>
+
+                        <!-- desktop view -->
+                        <a id="userDropdown" class="nav-link d-flex align-items-center rounded-pill bg px-1 pe-0 d-none d-sm-flex" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer;">
                             <span class="px-2 mb-0">Welcome, <?php echo htmlspecialchars($username); ?></span>
                             <img src="img/avatar.jpg" class="avatar img-fluid rounded-pill me-2" alt="" style="width:40px;height:40px;object-fit:contain;">
                         </a>
@@ -147,28 +164,24 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     <?php endif; ?>
-                    <div class="mt-3 mb-4">
-                        <h1>User Profile</h1>
-                        <h5 class="mb-0">User details</h5>
+                    <div class="mt-md-3 mt-sm-0 mb-4">
+                        <h1>User Details</h1>
+                        <!-- <h5 class="mb-0">User details</h5> -->
                     </div>
                     <?php if($admin): ?>
-                        <div class="card w-75">
+                        <div class="card w-100">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <p class="fs-3" >Your Profile</p>
+                                    <div class="col-md-5">
+                                        <img src="img/avatar.jpg" class="img-fluid w-100 rounded-2 mb-md-0 mb-4" alt="">
                                     </div>
-                                    <div class="col-6 text-end pt-2">
-                                        <p class="fs-5 text-muted">Joined: <?php echo htmlspecialchars($admin['created_at']); ?></p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-5">
-                                        <img src="img/avatar.jpg" class="img-fluid w-100 rounded-2" alt="">
-                                    </div>
-                                    <div class="col-7 pt-0">
+                                    <div class="col-md-7 pt-0">
                                         <p class="fs-4">Username: <span class="fs-5" ><?php echo htmlspecialchars($admin['username']); ?></span></p>
-                                        <p class="fs-4">Email: <span class="fs-5" ><?php echo htmlspecialchars($admin['email']); ?></span></p>
+                                        <div class="d-flex">
+                                            <p class="fs-4">Email: <span class="fs-5" ><?php echo htmlspecialchars($admin['email']); ?></span></p>
+                                        </div>
+                                        <p class="fs-5 text-muted">Joined: <?php echo htmlspecialchars($admin['created_at']); ?></p>
+
                                         <?php     
                                             // super admin check
                                             $_SESSION['is_super'] = $admin['is_super'];
