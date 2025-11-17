@@ -127,7 +127,7 @@
             </div>
         </aside>
         <div class="main bg-light">
-                            <nav class="navbar navbar-expand border-bottom px-4">
+                <nav class="navbar navbar-expand border-bottom px-4">
                     <button class="btn d-lg-block d-none" id="sidebar-toggle" type="button">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -185,6 +185,7 @@
                         <h1 class="blue">Staff</h1>
                         <h5 class="mb-0 light" style="font-family: cera_light !important; font-weight: 600 !important;">Overview of staff data</h5>
                     </div>
+
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -204,12 +205,13 @@
                                     <td><?php echo htmlspecialchars($row['last_name']); ?></td>
                                     <td><?php echo htmlspecialchars($row['email']); ?></td>
                                     <td><?php echo htmlspecialchars($row['sex']); ?></td>
-                                    <td><a href="student_details.php?id=<?php echo $row['id'] ?>">more details</a></td>
+                                    <td><a href="student_details.php?id=<?php echo $row['id'] ?>"><i class="fa-solid fa-up-right-from-square ps-2 fs-6"></i></a></td>
                                 </tr>
 
                             <?php } ?>
                         </tbody>
                     </table>
+                    <p class="text-muted fst-italic d-md-none d-sm-block">swipe to view full table</p>
                 </div>
             </main>
         </div>

@@ -112,7 +112,7 @@
             </div>
         </aside>
         <div class="main bg-light">
-                            <nav class="navbar navbar-expand border-bottom px-4">
+                <nav class="navbar navbar-expand border-bottom px-4">
                     <button class="btn d-lg-block d-none" id="sidebar-toggle" type="button">
                         <span class="navbar-toggler-icon"></span>
                     </button>
