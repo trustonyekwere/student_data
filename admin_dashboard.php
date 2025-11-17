@@ -70,6 +70,23 @@
             margin: 0 10px;
             transition: all ease .12s;
         }
+        
+        .light {
+            font-family: cera_light !important;
+            font-weight: 500 !important;
+        }
+
+        .h-100 {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .foot {
+            color: #adb5bd;
+            margin-left: 1.2em;
+            margin-right: 1em;
+            font-size: .7em;
+        }
     </style>
 </head>
 <body>
@@ -78,7 +95,7 @@
         <aside id="sidebar" class="d-lg-block d-none">
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="./admin_dashboard.php"><img src="img/core_white.png" class="p-1 my-3" style="width: 10rem !important;" alt="CORE-TECH"></a>
+                    <a href="./admin_dashboard.php"><img src="img/core_white.png" class="p-1 my-3" style="width: 9rem !important;" alt="CORE-TECH"></a>
                 </div>
                 <ul class="sidebar-nav">
                     <li class="active reg">
@@ -112,6 +129,7 @@
                         </a>
                     </li>
                 </ul>
+                <p class="foot">&copy; 2025 <a href="https://coresystech.ng" target="_blank" class="log">CORE-TECH</a>. <span class="light" >All Rights Reserved.</span></p>
             </div>
         </aside>
         <div class="main bg-light">
@@ -166,20 +184,55 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <a href="" style="text-decoration: none">
-                                <div class="card special-effects border-0 text-white bg-primary h-100">
+                                <div class="card special-effects border-0 text-white bg-success h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title">Active Students</h5>
-                                        <p class="card-text fs-1 text-end">35</p>
+                                        <h5 class="card-title">Prospective Students</h5>
+                                        <p class="light pt-1">View applications and manage new student entries.</p>
+                                        <p class="card-text fs-1 text-end"><i class="fa-solid fa-up-right-from-square fs-6"></i></p>
                                     </div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-md-4 mb-3">
                             <a href="" style="text-decoration: none">
-                                <div class="card special-effects border-0 text-white bg-success h-100">
+                                <div class="card special-effects border-0 text-white bg-primary h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Courses</h5>
-                                        <p class="card-text fs-1 text-end">12</p>
+                                        <h5 class="card-title">Registered Students</h5>
+                                        <p class="light pt-1">Access the full list of enrolled students and manage their details.</p>
+                                        <p class="card-text fs-1 text-end"><i class="fa-solid fa-up-right-from-square fs-6"></i></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="" style="text-decoration: none">
+                                <div class="card special-effects border-0 text-white bg-secondary h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Graduated Students</h5>
+                                        <p class="light pt-1">Browse records of past students and verify graduation information.</p>
+                                        <p class="card-text fs-1 text-end"><i class="fa-solid fa-up-right-from-square fs-6"></i></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="" style="text-decoration: none">
+                                <div class="card special-effects border-0 text-white bg-dark h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Staff</h5>
+                                        <p class="light pt-1">Manage staff profiles, roles, and individual details.</p>
+                                        <p class="card-text fs-1 text-end"><i class="fa-solid fa-up-right-from-square fs-6"></i></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="" style="text-decoration: none">
+                                <div class="card special-effects border-0 text-white bg-danger h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Payments</h5>
+                                        <p class="light pt-1">Review student payments and manage financial records.</p>
+                                        <p class="card-text fs-1 text-end"><i class="fa-solid fa-up-right-from-square fs-6"></i></p>
                                     </div>
                                 </div>
                             </a>
@@ -188,8 +241,9 @@
                             <a href="" style="text-decoration: none">
                                 <div class="card special-effects border-0 text-white bg-warning h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title">Pending Registrations</h5>
-                                        <p class="card-text fs-1 text-end">7</p>
+                                        <h5 class="card-title">Files</h5>
+                                        <p class="light pt-1">Upload, organize, and access important school documents securely.</p>
+                                        <p class="card-text fs-1 text-end"><i class="fa-solid fa-up-right-from-square fs-6"></i></p>
                                     </div>
                                 </div>
                             </a>

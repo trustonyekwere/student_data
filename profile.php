@@ -55,6 +55,17 @@
             margin: 0 10px;
             transition: all ease .12s;
         }
+        .h-100 {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .foot {
+            color: #adb5bd;
+            margin-left: 1.2em;
+            margin-right: 1em;
+            font-size: .7em;
+        }
     </style>
 </head>
 <body>
@@ -63,10 +74,10 @@
         <aside id="sidebar" class="d-lg-block d-none">
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="./admin_dashboard.php"><img src="img/core_white.png" class="p-1 my-3" style="width: 10rem !important;" alt="CORE-TECH"></a>
+                    <a href="./admin_dashboard.php"><img src="img/core_white.png" class="p-1 my-3" style="width: 9rem !important;" alt="CORE-TECH"></a>
                 </div>
                 <ul class="sidebar-nav">
-                    <li class="reg active">
+                    <li class="active reg">
                         <a href="admin_dashboard.php" class="sidebar-link">
                             <i class="fa-solid fa-grip"></i>
                             Dashboard
@@ -85,18 +96,19 @@
                         </a>
                     </li>
                     <li class="reg my-1">
-                        <a href="#" class="sidebar-link">
+                        <a href="./student_dashboard.php" class="sidebar-link">
                             <i class="fa-solid fa-sack-dollar"></i>
                             Payments
                         </a>
                     </li>
                     <li class="reg my-1">
-                        <a href="#" class="sidebar-link">
+                        <a href="./student_dashboard.php" class="sidebar-link">
                             <i class="fa-solid fa-file-lines"></i>
                             Files
                         </a>
                     </li>
                 </ul>
+                <p class="foot">&copy; 2025 <a href="https://coresystech.ng" target="_blank" class="log">CORE-TECH</a>. <span class="light" >All Rights Reserved.</span></p>
             </div>
         </aside>
         <div class="main bg-light">

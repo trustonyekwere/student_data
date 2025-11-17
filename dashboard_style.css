@@ -93,12 +93,11 @@ a.sidebar-link {
 
 .special-effects {
     background: rgba(13,110,253,0.8);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
     border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.1s ease-in-out;
     }
 
 .special-effects:hover {
     transform: scale(1.05);
-    box-shadow: 0 5px 25px rgba(13,110,253,0.4);
 }
