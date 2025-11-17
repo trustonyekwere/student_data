@@ -81,7 +81,7 @@
                     <a href="./admin_dashboard.php"><img src="img/core_white.png" class="p-1 my-3" style="width: 10rem !important;" alt="CORE-TECH"></a>
                 </div>
                 <ul class="sidebar-nav">
-                    <li class="active reg">
+                    <li class="reg my-1">
                         <a href="admin_dashboard.php" class="sidebar-link">
                             <i class="fa-solid fa-grip"></i>
                             Dashboard
@@ -93,20 +93,20 @@
                             Students
                         </a>
                     </li>
-                    <li class="reg my-1">
+                    <li class="active reg">
                         <a href="./staff_dashboard.php" class="sidebar-link">
                             <i class="fa-solid fa-briefcase"></i>
                             Staff
                         </a>
                     </li>
                     <li class="reg my-1">
-                        <a href="./student_dashboard.php" class="sidebar-link">
+                        <a href="#" class="sidebar-link">
                             <i class="fa-solid fa-sack-dollar"></i>
                             Payments
                         </a>
                     </li>
                     <li class="reg my-1">
-                        <a href="./student_dashboard.php" class="sidebar-link">
+                        <a href="#" class="sidebar-link">
                             <i class="fa-solid fa-file-lines"></i>
                             Files
                         </a>
@@ -148,6 +148,7 @@
                 </div>
 
             </nav>
+
             <main class="content px-3 py-2">
                 <div class="container-fluid">
                     <?php if (!empty($_SESSION['success'])): ?>
@@ -158,43 +159,34 @@
                     <?php endif; ?>
 
                     <div class="mt-3 mb-4">
-                        <h1 class="blue">Dashboard</h1>
-                        <!-- <h5 class="mb-0 light" style="font-family: cera_light !important; font-weight: 600 !important;">Overview of student data</h5> -->
+                        <h1 class="blue">Staff</h1>
+                        <h5 class="mb-0 light" style="font-family: cera_light !important; font-weight: 600 !important;">Overview of staff data</h5>
                     </div>
-                    
-                    <!-- cards -->
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <a href="" style="text-decoration: none">
-                                <div class="card special-effects border-0 text-white bg-primary h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Active Students</h5>
-                                        <p class="card-text fs-1 text-end">35</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <a href="" style="text-decoration: none">
-                                <div class="card special-effects border-0 text-white bg-success h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Total Courses</h5>
-                                        <p class="card-text fs-1 text-end">12</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <a href="" style="text-decoration: none">
-                                <div class="card special-effects border-0 text-white bg-warning h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Pending Registrations</h5>
-                                        <p class="card-text fs-1 text-end">7</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="blue">Id</th>
+                                <th scope="col" class="blue">First name</th>
+                                <th scope="col" class="blue">Last name</th>
+                                <th scope="col" class="blue">Email</th>
+                                <th scope="col" class="blue">Sex</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while($row = mysqli_fetch_assoc($result)) { ?>
+
+                                <tr>
+                                    <th scope="row"><?php echo htmlspecialchars($row['id']); ?></th>
+                                    <td><?php echo htmlspecialchars($row['first_name']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['last_name']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['email']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['sex']); ?></td>
+                                    <td><a href="student_details.php?id=<?php echo $row['id'] ?>">more details</a></td>
+                                </tr>
+
+                            <?php } ?>
+                        </tbody>
+                    </table>
                 </div>
             </main>
         </div>

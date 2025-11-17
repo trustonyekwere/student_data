@@ -94,6 +94,17 @@
         .small {
             color: #0e2a46ff !important;
         }
+        .active {
+            background-color: #0f2942ff;
+            border-radius: 12px;
+            margin: 0 10px;
+        }
+        .reg:hover {
+            background-color: #163450ff;
+            border-radius: 12px;
+            margin: 0 10px;
+            transition: all ease .12s;
+        }
     </style>
 </head>
 <body>
@@ -102,34 +113,40 @@
         <aside id="sidebar" class="d-lg-block d-none">
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="https://coresystech.ng/contactus.html"><img src="img/logo.png" style="width: 10rem !important;" alt="CORE-TECH"></a>
+                    <a href="./admin_dashboard.php"><img src="img/core_white.png" class="p-1 my-3" style="width: 10rem !important;" alt="CORE-TECH"></a>
                 </div>
                 <ul class="sidebar-nav">
-                    <li class="mt-3">
+                    <li class="reg my-1">
                         <a href="admin_dashboard.php" class="sidebar-link">
-                            <i class="fa-solid fa-list"></i>
+                            <i class="fa-solid fa-grip"></i>
                             Dashboard
                         </a>
                     </li>
-                    <li>
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false">
-                            <i class="fa-solid fa-user"></i>
+                    <li class="reg active">
+                        <a href="./student_dashboard.php" class="sidebar-link">
+                            <i class="fa-solid fa-graduation-cap"></i>
                             Students
                         </a>
                     </li>
-                    <li>
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false">
-                            <i class="fa-solid fa-user"></i>
-                            Admins
+                    <li class="reg my-1">
+                        <a href="./staff_dashboard.php" class="sidebar-link">
+                            <i class="fa-solid fa-briefcase"></i>
+                            Staff
                         </a>
                     </li>
-                    <li>
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false">
+                    <li class="reg my-1">
+                        <a href="#" class="sidebar-link">
+                            <i class="fa-solid fa-sack-dollar"></i>
+                            Payments
+                        </a>
+                    </li>
+                    <li class="reg my-1">
+                        <a href="#" class="sidebar-link">
                             <i class="fa-solid fa-file-lines"></i>
                             Files
                         </a>
                     </li>
-                </ul> 
+                </ul>
             </div>
         </aside>
         <div class="main bg-light">
@@ -175,7 +192,7 @@
                     <?php if($row): ?>
                         <div class="card w-75">
                             <div class="card-body">
-                                <p class="fs-4" >Student Details</p>
+                                <!-- <p class="fs-4" >Student Details</p> -->
                                 <div class="row">
                                     <div class="col-5">
                                         <img src="uploads/<?php echo ($row['image_name']); ?>" class="w-100 shadow-lg" alt="user_image">

@@ -65,38 +65,30 @@ if (isset($_POST['update'])) {
     <title>Edit <?php echo $student_data['last_name'];?> Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <style>
+        *{
+            overflow-y: hidden;
+            overflow-x: hidden;
+            max-height: 100vh;
+        }
+        /* :: is used to style placeholders and other attributes */
+        input, textarea {
+            font-weight: 600 !important;
+            font-size: smaller;
+            font-family: cera_light !important;
+            font-style: italic !important;
+            color: #777 !important;
+        }
+    </style>
 </head>
 
 <body class="bg-light">
-    <header>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
-            <div class="container">
-                <a class="navbar-brand" href="https://coresystech.ng/"><img src="img/logo.png" class="brand" alt=""></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <div class="text-center d-lg-none d-flex justify-content-center">
-                            <li class="nav-item" style="width: 12rem; list-style: none;">
-                                <a class="nav-link btn btn-secondary" href="https://coresystech.ng/" target="_blank">Back To Home</a>
-                            </li>
-                        </div>
-                        <div class="d-none d-lg-block">
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-secondary" href="https://coresystech.ng/" target="_blank">Back To Home</a>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
 
     <main class="container">
-        <section class="justify-content-center mt-5 pt-5">
-            <div class="card p-5 my-5 border-0 shadow-lg">
+        <section class="justify-content-center mt-5 pt-3">
+            <div class="card p-5 border-0 shadow-sm">
                 <!-- submit to same page so the PHP above runs -->
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                     
@@ -104,7 +96,7 @@ if (isset($_POST['update'])) {
                     <input type="text" hidden id="update_id" name="update_id" value="<?php echo $student_data['id'];?>">
 
                     <div class="mb-5 text-center">
-                        <h1 class="blue">Edit Details</h1>
+                        <h1 class="blue">Edit student details</h1>
                     </div>
 
                     <div class="row">
@@ -145,11 +137,10 @@ if (isset($_POST['update'])) {
                     <div class="text-center">
                         <button type="submit" name="update" class="btn btn-primary mt-3">Update</button>
                     </div>
+
                 </form>
             </div>
         </section>
     </main>
-
-<?php include('templates/footer.php'); ?>
 
 </html>
